@@ -15,11 +15,13 @@ import {
 import { Progress } from '~/components/ui/progress';
 import { Text } from '~/components/ui/text';
 import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip';
+import { useRouter } from 'expo-router';
 
 const GITHUB_AVATAR_URI =
   'https://i.pinimg.com/originals/ef/a2/8d/efa28d18a04e7fa40ed49eeb0ab660db.jpg';
 
 export default function Screen() {
+    const router = useRouter()
   const [progress, setProgress] = React.useState(78);
 
   function updateProgressValue() {
@@ -87,6 +89,11 @@ export default function Screen() {
             onPress={updateProgressValue}
           >
             <Text>Update</Text>
+          </Button>
+          <Button onPress={() => {
+            router.push('/second')
+          }}>
+            <Text>Go to second</Text>
           </Button>
         </CardFooter>
       </Card>
