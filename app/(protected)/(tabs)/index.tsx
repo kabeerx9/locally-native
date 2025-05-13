@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
-import { DELIVERY_ITEMS, RECENT_DELIVERIES } from '../../lib/data';
+import { DELIVERY_ITEMS, RECENT_DELIVERIES } from '../../../lib/data';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {

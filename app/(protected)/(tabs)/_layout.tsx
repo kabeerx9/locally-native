@@ -1,18 +1,25 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from '~/lib/useColorScheme';
+import { ThemeToggle } from '~/components/ThemeToggle';
+import ProfileDropdown from '~/components/ProfileDropdown';
 
 export default function TabLayout() {
       const { colorScheme, isDarkColorScheme } = useColorScheme();
   return (
     <Tabs
+
       screenOptions={{
         tabBarStyle: {
           backgroundColor: isDarkColorScheme ? 'black' : 'white',
         },
         tabBarActiveTintColor: isDarkColorScheme ? 'lightgreen' : 'darkgreen',
         tabBarInactiveTintColor: isDarkColorScheme ? '#fff' : '#000',
-        headerShown: false,
+        headerShown: true,
+        headerRight : ()=><>
+            <ThemeToggle/>
+            <ProfileDropdown/>
+        </>
       }}
     >
       <Tabs.Screen

@@ -5,14 +5,13 @@ import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
-import { Platform, View } from 'react-native';
+import { Platform } from 'react-native';
+import ProfileDropdown from '~/components/ProfileDropdown';
+import { ThemeToggle } from '~/components/ThemeToggle';
 import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
 import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
-import { ThemeToggle } from '~/components/ThemeToggle';
-import { Button } from '~/components/ui/button';
-import { Text } from '~/components/ui/text';
-import ProfileDropdown from '~/components/ProfileDropdown';
+import { AuthProvider } from '~/context/auth-context';
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -53,23 +52,31 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-      <Stack>
-        <Stack.Screen
-          name='(tabs)'
-          options={{
-            title: 'Application dummy heading',
-            headerRight: () => (
-              <>
-                <ThemeToggle />
-                <ProfileDropdown />
-              </>
-            ),
-          }}
+        <AuthProvider>
 
-        />
+      <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+      <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+      >
+        <Stack.Screen
+          name="(protected)"
+          options={{
+              headerShown: false,
+              animation: "none",
+            }}
+            />
+        <Stack.Screen
+          name="login"
+          options={{
+              animation: "none",
+
+            }}
+            />
       </Stack>
       <PortalHost />
+        </AuthProvider>
     </ThemeProvider>
   );
 }

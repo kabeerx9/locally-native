@@ -4,10 +4,13 @@ import { Text } from '~/components/ui/text';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { User, LogOut, Link as LinkIcon } from 'lucide-react-native';
 import { useColorScheme } from '~/lib/useColorScheme';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
+import { useAuth } from '~/context/auth-context';
 
 export default function ProfileDropdown() {
+    const router = useRouter()
   const insets = useSafeAreaInsets();
+const {logOut} =  useAuth()
   const { isDarkColorScheme } = useColorScheme();
 
   const contentInsets = {
@@ -35,13 +38,13 @@ export default function ProfileDropdown() {
         className="w-48 bg-background border border-border"
       >
         <DropdownMenuGroup>
-          <DropdownMenuItem className="flex-row items-center py-3 focus:bg-accent">
-            <Link href={'/profile'}>
+          <DropdownMenuItem className="flex-row items-center py-3 focus:bg-accent" onPress={() => router.push('/profile')}>
+
             <User className="h-4 w-4 mr-3" color={isDarkColorScheme ? '#fff' : '#000'} />
             <Text className="text-sm font-medium">Profile</Text>
-            </Link>
+
           </DropdownMenuItem>
-          <DropdownMenuItem className="flex-row items-center py-3 focus:bg-accent">
+          <DropdownMenuItem className="flex-row items-center py-3 focus:bg-accent" onPress={logOut}>
             <LogOut className="h-4 w-4 mr-3" color={isDarkColorScheme ? '#fff' : '#000'} />
             <Text className="text-sm font-medium">Logout</Text>
           </DropdownMenuItem>
