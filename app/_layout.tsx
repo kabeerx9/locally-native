@@ -55,7 +55,7 @@ export default function RootLayout() {
         <Stack.Screen
           name='(tabs)'
           options={{
-            title: 'Starter Base',
+            title: 'Application dummy heading',
             headerRight: () => <ThemeToggle />,
           }}
 

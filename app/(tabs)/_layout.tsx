@@ -12,11 +12,11 @@ export default function TabLayout() {
         },
         tabBarActiveTintColor: isDarkColorScheme ? 'lightgreen' : 'darkgreen',
         tabBarInactiveTintColor: isDarkColorScheme ? '#fff' : '#000',
-        headerShown: true,
+        headerShown: false,
       }}
     >
       <Tabs.Screen
-        name="home"
+        name="index"
         options={{
           title: 'Home',
           tabBarIcon: ({ color, size }) => (
