@@ -53,11 +53,12 @@ export default function RootLayout() {
       <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
       <Stack>
         <Stack.Screen
-          name='index'
+          name='(tabs)'
           options={{
             title: 'Starter Base',
             headerRight: () => <ThemeToggle />,
           }}
+
         />
       </Stack>
       <PortalHost />
