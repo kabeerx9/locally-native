@@ -1,8 +1,11 @@
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { View } from "react-native";
 import { useAuth } from "../context/auth-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { Link } from "expo-router";
+import { Text } from "~/components/ui/text";
+import { Input } from "~/components/ui/input";
+import { Button } from "~/components/ui/button";
 
 export default function LoginScreen() {
   const { isDarkColorScheme } = useColorScheme();
@@ -19,56 +22,54 @@ export default function LoginScreen() {
               color={isDarkColorScheme ? '#4ade80' : '#16a34a'}
             />
           </View>
-          <Text className={`text-3xl font-bold text-center mb-4 ${isDarkColorScheme ? 'text-white' : 'text-gray-900'}`}>
-            Welcome Back
-          </Text>
-          <Text className={`text-base text-center ${isDarkColorScheme ? 'text-gray-400' : 'text-gray-600'}`}>
-            Sign in to your account
-          </Text>
+          <Text className="text-3xl font-bold text-center mb-4">Welcome Back</Text>
+          <Text className="text-base text-center text-muted-foreground">Sign in to your account</Text>
         </View>
 
         <View className="space-y-6 mb-8">
-          <TextInput
+          <Input
             placeholder="Email"
-            placeholderTextColor={isDarkColorScheme ? '#9ca3af' : '#6b7280'}
-            className={`w-full px-4 py-4 rounded-xl border ${isDarkColorScheme ? 'bg-gray-800 border-gray-700 text-white' : 'bg-gray-50 border-gray-200 text-black'}`}
+            className="bg-background"
           />
-          <TextInput
+          <Input
             placeholder="Password"
-            placeholderTextColor={isDarkColorScheme ? '#9ca3af' : '#6b7280'}
             secureTextEntry
-            className={`w-full px-4 py-4 rounded-xl border ${isDarkColorScheme ? 'bg-gray-800 border-gray-700 text-white' : 'bg-gray-50 border-gray-200 text-black'}`}
+            className="bg-background"
           />
         </View>
 
-        <TouchableOpacity
+        <Button
           onPress={logIn}
-          className={`${isDarkColorScheme ? 'bg-green-500' : 'bg-green-600'} rounded-xl py-4 w-full mb-8`}
+          className="mb-8"
         >
-          <Text className="text-white text-center font-semibold text-lg">Sign In</Text>
-        </TouchableOpacity>
+          <Text className="text-primary-foreground font-semibold text-lg">Sign In</Text>
+        </Button>
 
         <View className="flex-row items-center mb-8">
-          <View className="flex-1 h-[1px] bg-gray-300 dark:bg-gray-700" />
-          <Text className={`mx-4 ${isDarkColorScheme ? 'text-gray-400' : 'text-gray-600'}`}>or continue with</Text>
-          <View className="flex-1 h-[1px] bg-gray-300 dark:bg-gray-700" />
+          <View className="flex-1 h-[1px] bg-border" />
+          <Text className="mx-4 text-muted-foreground">or continue with</Text>
+          <View className="flex-1 h-[1px] bg-border" />
         </View>
 
-        <View className="flex-row space-x-4 mb-6">
-          <TouchableOpacity className={`flex-1 flex-row items-center justify-center py-3 rounded-xl border ${isDarkColorScheme ? 'border-gray-700' : 'border-gray-200'}`}>
+        <View className="flex-row space-x-4 mb-8">
+          <Button
+            variant="outline"
+            className="flex-1"
+          >
             <MaterialIcons name="mail" size={24} color={isDarkColorScheme ? '#fff' : '#000'} />
-          </TouchableOpacity>
-          <TouchableOpacity className={`flex-1 flex-row items-center justify-center py-3 rounded-xl border ${isDarkColorScheme ? 'border-gray-700' : 'border-gray-200'}`}>
+          </Button>
+          <Button
+            variant="outline"
+            className="flex-1"
+          >
             <MaterialIcons name="phone-android" size={24} color={isDarkColorScheme ? '#fff' : '#000'} />
-          </TouchableOpacity>
+          </Button>
         </View>
 
         <View className="flex-row justify-center">
-          <Text className={`${isDarkColorScheme ? 'text-gray-400' : 'text-gray-600'}`}>Don't have an account? </Text>
+          <Text className="text-muted-foreground">Don't have an account? </Text>
           <Link href="/signup" asChild>
-            <TouchableOpacity>
-              <Text className={`font-semibold ${isDarkColorScheme ? 'text-green-400' : 'text-green-600'}`}>Sign Up</Text>
-            </TouchableOpacity>
+            <Text className="font-semibold text-primary underline">Sign Up</Text>
           </Link>
         </View>
       </View>
