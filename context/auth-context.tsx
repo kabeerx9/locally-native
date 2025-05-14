@@ -37,7 +37,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
       // Simulate a delay for splash screen
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setIsReady(true);
-      SplashScreen.hideAsync();
     };
 
     initAuth();
