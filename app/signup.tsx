@@ -2,11 +2,12 @@ import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { useAuth } from "../context/auth-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useColorScheme } from "~/lib/useColorScheme";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
-export default function LoginScreen() {
+export default function SignupScreen() {
   const { isDarkColorScheme } = useColorScheme();
   const { logIn } = useAuth();
+  const router = useRouter();
 
   return (
     <View className={`flex-1 items-center justify-center px-8 ${isDarkColorScheme ? 'bg-gray-900' : 'bg-white'}`}>
@@ -20,14 +21,19 @@ export default function LoginScreen() {
             />
           </View>
           <Text className={`text-3xl font-bold text-center mb-4 ${isDarkColorScheme ? 'text-white' : 'text-gray-900'}`}>
-            Welcome Back
+            Create Account
           </Text>
           <Text className={`text-base text-center ${isDarkColorScheme ? 'text-gray-400' : 'text-gray-600'}`}>
-            Sign in to your account
+            Join us and start shipping
           </Text>
         </View>
 
         <View className="space-y-6 mb-8">
+          <TextInput
+            placeholder="Full Name"
+            placeholderTextColor={isDarkColorScheme ? '#9ca3af' : '#6b7280'}
+            className={`w-full px-4 py-4 rounded-xl border ${isDarkColorScheme ? 'bg-gray-800 border-gray-700 text-white' : 'bg-gray-50 border-gray-200 text-black'}`}
+          />
           <TextInput
             placeholder="Email"
             placeholderTextColor={isDarkColorScheme ? '#9ca3af' : '#6b7280'}
@@ -45,7 +51,7 @@ export default function LoginScreen() {
           onPress={logIn}
           className={`${isDarkColorScheme ? 'bg-green-500' : 'bg-green-600'} rounded-xl py-4 w-full mb-8`}
         >
-          <Text className="text-white text-center font-semibold text-lg">Sign In</Text>
+          <Text className="text-white text-center font-semibold text-lg">Create Account</Text>
         </TouchableOpacity>
 
         <View className="flex-row items-center mb-8">
@@ -64,12 +70,10 @@ export default function LoginScreen() {
         </View>
 
         <View className="flex-row justify-center">
-          <Text className={`${isDarkColorScheme ? 'text-gray-400' : 'text-gray-600'}`}>Don't have an account? </Text>
-          <Link href="/signup" asChild>
-            <TouchableOpacity>
-              <Text className={`font-semibold ${isDarkColorScheme ? 'text-green-400' : 'text-green-600'}`}>Sign Up</Text>
-            </TouchableOpacity>
-          </Link>
+          <Text className={`${isDarkColorScheme ? 'text-gray-400' : 'text-gray-600'}`}>Already have an account? </Text>
+          <TouchableOpacity onPress={() => router.back()}>
+            <Text className={`font-semibold ${isDarkColorScheme ? 'text-green-400' : 'text-green-600'}`}>Sign In</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
