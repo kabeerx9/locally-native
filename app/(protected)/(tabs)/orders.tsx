@@ -8,9 +8,9 @@ export default function OrdersScreen() {
   ];
 
   return (
-    <View className="flex-1 bg-white dark:bg-gray-900 p-4">
+    <View className="flex-1 bg-background p-4">
       <Text className="text-xl font-bold mb-4 text-black dark:text-white">Your Orders</Text>
-      
+
       {dummyOrders.map((order) => (
         <View key={order.id} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-3">
           <Text className="font-medium text-black dark:text-white">{order.item}</Text>

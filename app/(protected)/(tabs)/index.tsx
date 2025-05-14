@@ -5,7 +5,7 @@ import { DELIVERY_ITEMS, RECENT_DELIVERIES } from '../../../lib/data';
 export default function HomeScreen() {
 
   return (
-    <View className="flex-1 bg-white dark:bg-gray-900">
+    <View className="flex-1 bg-background">
       <ScrollView className="flex-1">
         {/* Header */}
         <View className="px-4 py-6">

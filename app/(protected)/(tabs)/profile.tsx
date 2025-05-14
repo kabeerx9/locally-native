@@ -17,7 +17,7 @@ export default function ProfileScreen() {
   ];
 
   return (
-    <View className="flex-1 bg-white dark:bg-gray-900 p-4">
+    <View className="flex-1 bg-background p-4">
       <View className="items-center mb-6">
         <View className="w-20 h-20 rounded-full bg-gray-300 dark:bg-gray-700 mb-3" />
         <Text className="text-xl font-bold text-black dark:text-white">{userInfo.name}</Text>
@@ -26,8 +26,8 @@ export default function ProfileScreen() {
       </View>
 
       {menuItems.map((item) => (
-        <TouchableOpacity 
-          key={item} 
+        <TouchableOpacity
+          key={item}
           className="flex-row justify-between items-center py-4 border-b border-gray-200 dark:border-gray-800"
         >
           <Text className="text-black dark:text-white">{item}</Text>

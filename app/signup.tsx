@@ -13,7 +13,7 @@ export default function SignupScreen() {
   const router = useRouter();
 
   return (
-    <View className={`flex-1 items-center justify-center px-8 ${isDarkColorScheme ? 'bg-gray-900' : 'bg-white'}`}>
+    <View className={`flex-1 items-center justify-center px-8 bg-background`}>
       <View className="w-full max-w-sm">
         <View className="items-center mb-12">
           <View className={`p-5 rounded-full mb-8 ${isDarkColorScheme ? 'bg-gray-800' : 'bg-green-50'}`}>
