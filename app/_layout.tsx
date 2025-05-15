@@ -14,6 +14,7 @@ import { useColorScheme } from '~/lib/useColorScheme';
 import { AuthProvider } from '~/context/auth-context';
 import { storage } from '~/storage/storage';
 import { AppSettings, StorageKeys } from '~/types';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Prevent auto-hiding splash screen
 // SplashScreen.preventAutoHideAsync();
@@ -82,6 +83,7 @@ export default function RootLayout() {
   }
 
   return (
+
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <AuthProvider>
         <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
@@ -113,6 +115,7 @@ export default function RootLayout() {
         <PortalHost />
       </AuthProvider>
     </ThemeProvider>
+
   );
 }
 
