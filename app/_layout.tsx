@@ -12,6 +12,8 @@ import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
 import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { AuthProvider } from '~/context/auth-context';
+import { storage } from '~/storage/storage';
+import { AppSettings, StorageKeys } from '~/types';
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -29,8 +31,20 @@ export {
 
 export default function RootLayout() {
   const hasMounted = React.useRef(false);
-  const { colorScheme, isDarkColorScheme } = useColorScheme();
+  const { colorScheme, isDarkColorScheme, setColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    const initApp = async () => {
+      await storage.initSettings();
+      const settings = await storage.getItem(StorageKeys.APP_SETTINGS);
+      if (settings?.theme && settings.theme !== 'system') {
+        setColorScheme(settings.theme);
+      }
+      setIsColorSchemeLoaded(true);
+    };
+    initApp();
+  }, []);
 
   useIsomorphicLayoutEffect(() => {
     if (hasMounted.current) {
@@ -42,9 +56,15 @@ export default function RootLayout() {
       document.documentElement.classList.add('bg-background');
     }
     setAndroidNavigationBar(colorScheme);
-    setIsColorSchemeLoaded(true);
     hasMounted.current = true;
   }, []);
+
+  // Add effect to save theme changes
+  React.useEffect(() => {
+    if (hasMounted.current) {
+      storage.updateSettings({ theme: colorScheme });
+    }
+  }, [colorScheme]);
 
   if (!isColorSchemeLoaded) {
     return null;
