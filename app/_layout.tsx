@@ -2,7 +2,7 @@ import '~/global.css';
 
 import { DarkTheme, DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
-import { Stack } from 'expo-router';
+import { Stack, SplashScreen } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Platform } from 'react-native';
@@ -14,6 +14,9 @@ import { useColorScheme } from '~/lib/useColorScheme';
 import { AuthProvider } from '~/context/auth-context';
 import { storage } from '~/storage/storage';
 import { AppSettings, StorageKeys } from '~/types';
+
+// Prevent auto-hiding splash screen
+// SplashScreen.preventAutoHideAsync();
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -32,76 +35,83 @@ export {
 export default function RootLayout() {
   const hasMounted = React.useRef(false);
   const { colorScheme, isDarkColorScheme, setColorScheme } = useColorScheme();
-  const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+  const [isThemeReady, setIsThemeReady] = React.useState(false);
 
   React.useEffect(() => {
-    const initApp = async () => {
-      await storage.initSettings();
-      const settings = await storage.getItem(StorageKeys.APP_SETTINGS);
-      if (settings?.theme && settings.theme !== 'system') {
-        setColorScheme(settings.theme);
+    const initTheme = async () => {
+      try {
+        await storage.initSettings();
+        const settings = await storage.getItem(StorageKeys.APP_SETTINGS);
+        if (settings?.theme && settings.theme !== 'system') {
+          setColorScheme(settings.theme);
+        }
+      } catch (error) {
+        console.error('Error initializing theme:', error);
+      } finally {
+        setIsThemeReady(true);
       }
-      setIsColorSchemeLoaded(true);
     };
-    initApp();
+
+    initTheme();
   }, []);
 
   useIsomorphicLayoutEffect(() => {
-    if (hasMounted.current) {
-      return;
-    }
+    if (hasMounted.current) return;
 
     if (Platform.OS === 'web') {
-      // Adds the background color to the html element to prevent white background on overscroll.
       document.documentElement.classList.add('bg-background');
     }
     setAndroidNavigationBar(colorScheme);
     hasMounted.current = true;
   }, []);
 
-  // Add effect to save theme changes
   React.useEffect(() => {
-    if (hasMounted.current) {
+    if (hasMounted.current && isThemeReady) {
       storage.updateSettings({ theme: colorScheme });
     }
-  }, [colorScheme]);
+  }, [colorScheme, isThemeReady]);
 
-  if (!isColorSchemeLoaded) {
+  React.useEffect(() => {
+    if (isThemeReady) {
+    //   SplashScreen.hideAsync();
+    }
+  }, [isThemeReady]);
+
+  if (!isThemeReady) {
     return null;
   }
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-        <AuthProvider>
-
-      <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-      <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-      >
-        <Stack.Screen
-          name="(protected)"
-          options={{
+      <AuthProvider>
+        <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen
+            name="(protected)"
+            options={{
               headerShown: false,
               animation: "none",
             }}
-            />
-        <Stack.Screen
-          name="login"
-          options={{
+          />
+          <Stack.Screen
+            name="login"
+            options={{
               animation: "none",
             }}
-            />
-        <Stack.Screen
-          name="signup"
-          options={{
+          />
+          <Stack.Screen
+            name="signup"
+            options={{
               animation: "none",
             }}
-            />
-      </Stack>
-      <PortalHost />
-        </AuthProvider>
+          />
+        </Stack>
+        <PortalHost />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
