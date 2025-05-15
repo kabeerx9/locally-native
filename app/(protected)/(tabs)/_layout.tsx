@@ -3,12 +3,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { ThemeToggle } from '~/components/ThemeToggle';
 import ProfileDropdown from '~/components/ProfileDropdown';
+import React from 'react';
 
 export default function TabLayout() {
       const { colorScheme, isDarkColorScheme } = useColorScheme();
   return (
     <Tabs
-
       screenOptions={{
         tabBarStyle: {
           backgroundColor: isDarkColorScheme ? 'black' : 'white',
@@ -16,10 +16,10 @@ export default function TabLayout() {
         tabBarActiveTintColor: isDarkColorScheme ? 'lightgreen' : 'darkgreen',
         tabBarInactiveTintColor: isDarkColorScheme ? '#fff' : '#000',
         headerShown: true,
-        headerRight : ()=><>
+        headerRight : ()=>(<React.Fragment>
             <ThemeToggle/>
             <ProfileDropdown/>
-        </>
+        </React.Fragment>)
       }}
     >
       <Tabs.Screen

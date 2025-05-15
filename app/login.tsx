@@ -71,7 +71,7 @@ export default function LoginScreen() {
                 <Text className="text-base text-center text-muted-foreground">Sign in to your account</Text>
               </View>
 
-              <View className="space-y-6 mb-8">
+              <View className=" flex flex-col gap-4 mb-8">
                 <Input
                   placeholder="Email"
                   className="bg-background"
