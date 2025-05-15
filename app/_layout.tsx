@@ -15,6 +15,7 @@ import { AuthProvider } from '~/context/auth-context';
 import { storage } from '~/storage/storage';
 import { AppSettings, StorageKeys } from '~/types';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 
 // Prevent auto-hiding splash screen
 // SplashScreen.preventAutoHideAsync();
@@ -113,6 +114,7 @@ export default function RootLayout() {
           />
         </Stack>
         <PortalHost />
+        <Toast/>
       </AuthProvider>
     </ThemeProvider>
 

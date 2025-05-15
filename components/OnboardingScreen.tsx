@@ -212,7 +212,7 @@ export default function OnboardingScreen() {
         </View>
 
         {currentIndex === slides.length - 1 ? (
-          <Button onPress={completeOnboarding} className="mb-4" style={{backgroundColor: slides[currentIndex].color}}>
+          <Button onPress={completeOnboarding} style={{backgroundColor: slides[currentIndex].color}}>
             <Text className="text-primary-foreground font-semibold text-lg">Get Started</Text>
           </Button>
         ) : (

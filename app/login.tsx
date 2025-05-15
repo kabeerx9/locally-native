@@ -9,7 +9,7 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import Toast  from "react-native-toast-message";
 export default function LoginScreen() {
   const { isDarkColorScheme } = useColorScheme();
   const { logIn } = useAuth();
@@ -18,7 +18,28 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log('login');
+    console.log("starting login ")
+    if(email !== 'kabeer' && password !== 'kabeer'){
+        Toast.show({
+            text1: 'Ye galat hai madarchod!!',
+            type: 'error',
+            position: 'top',
+            visibilityTime: 3000,
+            autoHide: true,
+            topOffset: Platform.OS === 'ios' ? 100 : 50,
+
+        })
+        return;
+    }
+    Toast.show({
+        text1: 'Login successful',
+        type: 'success',
+        position: 'top',
+        visibilityTime: 3000,
+        autoHide: true,
+        topOffset: Platform.OS === 'ios' ? 100 : 50,
+    })
+    console.log("login success")
     Keyboard.dismiss();
     logIn();
   }
