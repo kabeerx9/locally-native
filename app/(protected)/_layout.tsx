@@ -1,6 +1,6 @@
 import { Redirect, Stack } from "expo-router";
 import { useAuth } from "../../context/auth-context";
-import { OnboardingScreen } from "~/components/OnboardingScreen";
+import OnboardingScreen from "~/components/OnboardingScreen";
 
 export const unstable_settings = {
   initialRouteName: "(tabs)",
